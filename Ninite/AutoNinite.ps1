@@ -1,4 +1,4 @@
-## Ninite AD Deployment v0.1
+## Ninite AD Deployment v0.2
 ## Wrote by fen www.justfen.com // twitter.com/justfen_/
 ## github.com/justfen fen@justfen.com
 
@@ -12,17 +12,32 @@ $domainName = "just.fen.com"
 $OU = "OU=Laptops,OU=Computers,DC=Just,DC=fen,DC=com"
 $NiniteCache = "R:\Ninite\Cache\"
 $NiniteTargets = "R:\Ninite\NiniteTargets.txt"
-$NiniteLog  = "R:\Ninite\log.txt"
+$NiniteLog  = "R:\Ninite\NiniteResults.csv"
 $NiniteDir = "R:\Ninite\"
+$StartDate = Get-Date
 
 function MachineGenerate {
 	# Create a PSDrive to manipulate AD
 	New-PSDrive -PSProvider ActiveDirectory -Name ADNinite -Root "" -Server "$domainName" 
-	chdir ADNinite:
+	pushd ADNinite:
 	Get-ADComputer -Filter * -SearchBase "$OU" | Select -Expand Name | Out-File "$NiniteTargets" -Encoding Default
-    chdir $NiniteDir
+    popd
     Remove-PSDrive -Name ADNinite
+}
+
+# Function to fire off confirmation eMail once it has finished running
+# Please fill in your SMTP details 
+
+function MailReport {
+    $smtp = "your.smtp.server"
+    $from = "ninite@yourdomain"
+    $to = "you@yourdomain"
+    $subject = "Ninite Report from $StartDate"
+    $body = "Please find attached the log of results"
+    $Attach = "$NiniteLog"
+    Send-Mailmessage -SmtpServer $smtp -From $from -To $to -Subject $subject -Body $body -Attachments $attach
 }
 
 MachineGenerate
 cmd /c NiniteOne.exe /updateonly /remote file:"$NiniteTargets" /disableshortcuts /disableautoupdate /cachepath "$NiniteCache" /silent "$NiniteLog"
+MailReport
