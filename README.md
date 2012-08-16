@@ -8,8 +8,7 @@ It's not supposed to be super fancy, but it is supposed to help low budget compa
 
 You need the following installed and running to make this script work
 
-* PowerShell
-* Windows RSAT http://www.microsoft.com/en-us/download/details.aspx?id=7887 for the PowerShell Active Directory plugin
+* PowerShell (It could be converted to a straight up .bat though!)
 
 You also need to have NiniteOne.exe which is aquired through subscribing to Ninite pro @ https://ninite.com/pro
 
@@ -21,10 +20,14 @@ You also need to have NiniteOne.exe which is aquired through subscribing to Nini
 
 ## AutoNinite.ps1
 
-Pretty simple, open the script up in a text ediot and change all the variables at the top of the file to your Ninite direcetory.
+Pretty simple, open the script up in a text editor and change all the variables at the top of the file to your Ninite direcetory.
 
-There's other things you want to change in there such as your SMTP server settings, AD settings. Given the uniquness of environments there's not really a "smart" way to do this so there's a tiny bit of legwork before you get it running.
+There's other things you want to change in there such as your SMTP server settings & AD roots. Given the uniquness of environments there's not really a "smart" way to do this so there's a tiny bit of legwork before you get it running.
 
 ## NiniteOne.bat
 
-Again, open this file up in a text editor and change the paths pointing to the folder in for which the AutoNinite.ps1 script lies.
+Again, open this file up in a text editor and change the paths pointing to the folder in for which the AutoNinite.ps1 script lies. This batch file is really there for a quick and easy way to capture the output and attachment to a scheduled task.
+
+# Additional Flags
+
+If you want some additional functionality then you'll want to read the command line switch references @ https://ninite.com/help/features/switches.html for NiniteOne. Some features you could build in for example is to only update certain packages or freeze installs at certain versions.
