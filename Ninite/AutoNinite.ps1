@@ -8,7 +8,7 @@ if ((Get-Module | Where-Object { $_.Name -eq "ActiveDirectory" }) -eq $null) { I
 # Set Variables Here #############
 ##################################
 
-## The Directory in which NiniteOne sites
+## The Directory in which NiniteOne sits
 $NiniteDir = "R:\Ninite\"
 ## An example would be "OU=Laptops,OU=Computers,DC=Just,DC=fen,DC=com"
 ## This would be equivalent to the following just.fen.com\Computers\Laptops
