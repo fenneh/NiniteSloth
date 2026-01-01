@@ -1,33 +1,29 @@
 # NiniteSloth
 
-The Ninite script is to be used in conjunction with Ninite's "Ninite Pro" service. The idea of the script is to be run as a scheduled task on a server and for it to update all the software on your network.
+PowerShell automation for Ninite Pro. Runs as a scheduled task to keep network software patched without lifting a finger.
 
-It's not supposed to be super fancy, but it is supposed to help low budget companies, charities, startups getting over the hurdle of software patching within an organization. 
+Built for low-budget companies, charities, and startups who need proper software patching but don't have proper budgets.
 
-## Prerequisites
+## Requirements
 
-You need the following installed and running to make this script work
+- PowerShell
+- Ninite Pro subscription ([ninite.com/pro](https://ninite.com/pro))
+- NiniteOne.exe from your subscription
 
-* PowerShell (It could be converted to a straight up .bat though!)
+## Setup
 
-You also need to have NiniteOne.exe which is aquired through subscribing to Ninite pro @ https://ninite.com/pro
+1. Place `NiniteOne.exe` and scripts in the same folder
+2. Edit `AutoNinite.ps1`:
+   - Set your Ninite directory path
+   - Configure SMTP server settings
+   - Set AD roots for your environment
+3. Edit `NiniteOne.bat` with the correct script path
+4. Create a scheduled task pointing to `NiniteOne.bat`
 
-# Setup
+## Configuration
 
-## File/Folder structure
+The script requires manual configuration because every environment is different. No magic auto-detection here - just honest PowerShell.
 
-* One folder containing NiniteOne.exe the scripts you have to set the path manually with anyway, but it'd be easier if you packaged them all in the same folder.
+## Additional Options
 
-## AutoNinite.ps1
-
-Pretty simple, open the script up in a text editor and change all the variables at the top of the file to your Ninite direcetory.
-
-There's other things you want to change in there such as your SMTP server settings & AD roots. Given the uniquness of environments there's not really a "smart" way to do this so there's a tiny bit of legwork before you get it running.
-
-## NiniteOne.bat
-
-Again, open this file up in a text editor and change the paths pointing to the folder in for which the AutoNinite.ps1 script lies. This batch file is really there for a quick and easy way to capture the output and attachment to a scheduled task.
-
-# Additional Flags
-
-If you want some additional functionality then you'll want to read the command line switch references @ https://ninite.com/help/features/switches.html for NiniteOne. Some features you could build in for example is to only update certain packages or freeze installs at certain versions.
+See [Ninite command line reference](https://ninite.com/help/features/switches.html) for advanced options like freezing versions or limiting packages.
